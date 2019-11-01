@@ -1,4 +1,10 @@
 
-# About the project
+_About the project_
 
-*Write a short description about the course and add a link to your GitHub repository here. This is an R Markdown (.Rmd) file so you can use R Markdown syntax.*
+https://github.com/Jauhoparta/IODS-project
+
+Getting to know R and R markdown is one of the first things I want to do as a master student of statistics. This course and the exercises should, in my view, provide a platform to try out new stuff, help others and practice writing R in real life. 
+
+In addition, learning github is a super bonus, as I have used it previously for some downloads but never for sharing work.
+
+**Write a short description about the course and add a link to your GitHub repository here. This is an R Markdown (.Rmd) file so you can use R Markdown syntax.**
