@@ -29,3 +29,5 @@ Opiskelu<-select(Opiskelu, one_of(keep_columns))
 
 #Scaling Attitude to nice things
 Opiskelu$Attitude<-Opiskelu$Attitude/10
+#Writing the data into the required location
+write.table(Opiskelu, file="LRN14.csv")
