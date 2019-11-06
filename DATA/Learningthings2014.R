@@ -22,7 +22,10 @@ Opiskelu$surf <- rowMeans(surface_columns)
 strategic_columns <- select(Opiskelu, one_of(strategic_questions))
 Opiskelu$stra<-rowMeans(strategic_columns)             
 
+#Choosing relevant variables 
 
 keep_columns <- c("gender","Age","Attitude", "deep", "stra", "surf", "Points")
 Opiskelu<-select(Opiskelu, one_of(keep_columns))
+
+#Scaling Attitude to nice things
 Opiskelu$Attitude<-Opiskelu$Attitude/10
