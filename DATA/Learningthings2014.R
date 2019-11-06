@@ -13,8 +13,16 @@ Opiskelu<-Opiskelu[Opiskelu$Points>0,]
 deep_questions <- c("D03", "D11", "D19", "D27", "D07", "D14", "D22", "D30","D06",  "D15", "D23", "D31")
 surface_questions <- c("SU02","SU10","SU18","SU26", "SU05","SU13","SU21","SU29","SU08","SU16","SU24","SU32")
 strategic_questions <- c("ST01","ST09","ST17","ST25","ST04","ST12","ST20","ST28") 
-  
 
-#Keeping gender, age, attitude, deep, stra, surf and points 
-keep_columns <- c("gender","Age","attitude", "deep", "stra", "surf", "Points")
+#Now making new interesting variables, with mean observations of some variables.
+deep_columns <- select(Opiskelu, one_of(deep_questions))
+Opiskelu$deep <- rowMeans(deep_columns)
+surface_columns <- select(Opiskelu, one_of(surface_questions))
+Opiskelu$surf <- rowMeans(surface_columns)
+strategic_columns <- select(Opiskelu, one_of(strategic_questions))
+Opiskelu$stra<-rowMeans(strategic_columns)             
+
+
+keep_columns <- c("gender","Age","Attitude", "deep", "stra", "surf", "Points")
 Opiskelu<-select(Opiskelu, one_of(keep_columns))
+Opiskelu$Attitude<-Opiskelu$Attitude/10
