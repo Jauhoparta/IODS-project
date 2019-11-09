@@ -2,7 +2,7 @@
 
 The second week of the course has taken me through some data wrangling and later a little of analysis, with emphasis on graphical analysis.  
 
-## Data {#css_id}
+## Data {#1}
 
 ```{r}
 Learning<-read.csv("LRN14.csv")
@@ -16,7 +16,7 @@ Here we see some aspecsts of the data we start to work on. The data is gathered 
 Attitude, Deep, stra and surf are all combined from several questionnaire variables with ranges 1-5, scaled so that the range of the sum is also 1-5 (by taking the mean). Points is the score of the final exam, ranging from  7 to 33, with maximum points 
 Attitude is quite clear, Deep means deep, stra and surf the deep, strategid and surface type of approac to learning in the course. 
 
-## Graphical analysis {#css_id}
+## Graphical analysis {#2}
 ```{r echo=F}
 library(GGally)
 library(ggplot2)
@@ -29,7 +29,7 @@ p
 
 Here we see a detailed graphical representation of the data. Some interesting facts pop up, namely most of the subjects are female. The ranges and the distributions of the variables are evident, and the most interesting fact about them is that the distributions of the attitude and surf variables differ between males and females. Some of the correlations between the variables seem possibly significant, but one cannot really say based on this analysis. 
 
-## Statistical analysis {#css_id}
+## Statistical analysis {#3}
 
 For a more detailed analysis, we fir a linear regression model onto the data. In the model we assume that the relationship of explanatory variables (here Attitude, stra and surf) explain the variable of interest (Points) in a linear manner. 
 
@@ -63,7 +63,7 @@ From the renewed model we see that the relevant estimate of the coefficient is a
 
 The multiple R squared of the model is in this case simply the square of the regression between Attitude and Points. Since it is around 0,2, approximately 20% of the variation of points can be explained by the variation of Attitude.
 
-# Model validation {#css_id}
+# Model validation {#4}
 Now we look at our model in light of some statistical graphical representations.
 
 ```{r echo=FALSE}
