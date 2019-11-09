@@ -1,7 +1,26 @@
-# Insert chapter 2 title here
+Regression and model validation
 
-*Describe the work you have done this week and summarize your learning.*
+The second week of the course has taken me through some data wrangling and later a little of analysis, with emphasis on graphical analysis.
 
-- Describe your work and results clearly. 
-- Assume the reader has an introductory course level understanding of writing and reading R code as well as statistical methods.
-- Assume the reader has no previous knowledge of your data or the more advanced methods you are using.
+```{r}
+Learning<-read.csv("LRN14.csv")
+dim(Learning)
+str(Learning)
+max(Learning$Points)
+min(Learning$Points)
+```
+Here we see some aspecsts of the data we start to work on. The data is gathered in 2014 from an introductory course on social statistics. The data consists of 7 variables and 166 observations, with the first variable being only the subject id. The variables are named so that one knows what one is dealing with for the most part, but for the variables Attitude, Deep, stra, surf and points a little clarification is necessary.
+
+Attitude, Deep, stra and surf are all combined from several questionnaire variables with ranges 1-5, scaled so that the range of the sum is also 1-5 (by taking the mean). Points is the score of the final exam, ranging from  7 to 33, with maximum points 
+Attitude is quite clear, Deep means deep, stra and surf the deep, strategid and surface type of approac to learning in the course. 
+
+```{r}
+library(GGally)
+library(ggplot2)
+
+# create a more advanced plot matrix with ggpairs()
+p <- ggpairs(Learning, mapping = aes(col=gender, alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
+p
+
+```
+Here we see a detailed graphical representation of the data. Some interesting facts pop up, namely most of the subjects are female, 
