@@ -78,4 +78,6 @@ par(mfrow = c(2,2))
 plot(my_model2, which=c(1, 2, 5))
 ```
 
+The assumptions of the model are that the error terms are approximately normally distributed with mean 0 and identical variation, uncorrelated and independent of the variable of interest. Specifically, the size of the error should not depend on the value of the explanatory or interesting variables.
 
+From these pictures it seems that the model assumptions are approximately correct, with the small exception of small values of Points corresponding to some larger deviation from the estimated mean. Also, a couple of observations seem to have somewhat large leverages, but overall the assumptions of the model seem to hold quite well. 
