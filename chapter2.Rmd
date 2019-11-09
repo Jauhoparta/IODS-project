@@ -1,6 +1,8 @@
-Regression and model validation
+#Regression and model validation
 
 The second week of the course has taken me through some data wrangling and later a little of analysis, with emphasis on graphical analysis.
+
+##Data
 
 ```{r}
 Learning<-read.csv("LRN14.csv")
@@ -14,7 +16,8 @@ Here we see some aspecsts of the data we start to work on. The data is gathered 
 Attitude, Deep, stra and surf are all combined from several questionnaire variables with ranges 1-5, scaled so that the range of the sum is also 1-5 (by taking the mean). Points is the score of the final exam, ranging from  7 to 33, with maximum points 
 Attitude is quite clear, Deep means deep, stra and surf the deep, strategid and surface type of approac to learning in the course. 
 
-```{r}
+##Graphical analysis
+```{r echo=F}
 library(GGally)
 library(ggplot2)
 
@@ -25,3 +28,17 @@ p
 ```
 
 Here we see a detailed graphical representation of the data. Some interesting facts pop up, namely most of the subjects are female. The ranges and the distributions of the variables are evident, and the most interesting fact about them is that the distributions of the attitude and surf variables differ between males and females. Some of the correlations between the variables seem possibly significant, but one cannot really say based on this analysis. 
+
+##Statistical analysis
+
+```{r}
+library(ggplot2)
+library(GGally)
+
+# create a regression model with multiple explanatory variables
+my_model2 <- lm(Points ~ Attitude + stra + surf, data = Learning)
+
+# print out a summary of the model
+summary(my_model2)
+```
+
