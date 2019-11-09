@@ -59,4 +59,4 @@ my_model2 <- lm(Points ~ Attitude, data = Learning)
 # print out a summary of the model
 summary(my_model2)
 ```
-From the renewed model we see that the relevant estimate of the coefficient $\beta_{Attitude}$ is approximately 3. This means that Attitude toward the course explains the course grade (specifically, the total points) so that an increase of one in Attitude will lead to an increase of 3 in Points. The intercept parameter is the value of expected points in the exam with an attitude of expected attitude (generally the mean). 
+From the renewed model we see that the relevant estimate of the coefficient $\beta_{Attitude}$ is approximately 3,5. This means that Attitude toward the course explains the course grade (specifically, the total points) so that an increase of one in Attitude will lead to an increase of 3,5 in Points. The intercept parameter is the value of expected points in the exam with an attitude of expected attitude (generally the mean). 
