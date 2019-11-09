@@ -33,4 +33,4 @@ Opiskelu$Attitude<-Opiskelu$Attitude/10
 write.csv(Opiskelu, file="LRN14.csv")
 
 #let's see if we can read teh data now:
-UUSI<-read.table("~/LRN14.csv", header=T)
+UUSI<-read.csv("LRN14.csv", header=T)
