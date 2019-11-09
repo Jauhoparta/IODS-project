@@ -43,7 +43,7 @@ my_model2 <- lm(Points ~ Attitude + stra + surf, data = Learning)
 # print out a summary of the model
 summary(my_model2)
 ```
-The statistical test (looking at the T-values and p-values) asks if the null hypothesis that the linear coefficient ($\beta_x$) corresponding to the particular explanatory variable $x$ is zero. This would mean that the variable has little or no effect on the variation of the target variable $y$, or Points in this case.
+The statistical test (looking at the T-values and p-values) asks if the null hypothesis that the linear coefficient corresponding to the particular explanatory variable is zero. This would mean that the variable has little or no effect on the variation of the target variable, or Points in this case.
 
 As seen from the summary, the coefficients related to stra and surf are not statistically significant and the variables should therefore be excluded from the model.
 
@@ -59,4 +59,4 @@ my_model2 <- lm(Points ~ Attitude, data = Learning)
 # print out a summary of the model
 summary(my_model2)
 ```
-From the renewed model we see that the relevant estimate of the coefficient $\beta_{Attitude}$ is approximately 3,5. This means that Attitude toward the course explains the course grade (specifically, the total points) so that an increase of one in Attitude will lead to an increase of 3,5 in Points. The intercept parameter is the value of expected points in the exam with an attitude of expected attitude (generally the mean). 
+From the renewed model we see that the relevant estimate of the coefficient is approximately 3,5. This means that Attitude toward the course explains the course grade (specifically, the total points) so that an increase of one in Attitude will lead to an increase of 3,5 in Points. The intercept parameter is the value of expected points in the exam with an attitude of expected attitude (generally the mean). 

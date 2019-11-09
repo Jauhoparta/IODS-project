@@ -430,7 +430,7 @@ summary(my_model2)</code></pre>
 ## Residual standard error: 5.296 on 162 degrees of freedom
 ## Multiple R-squared:  0.2074, Adjusted R-squared:  0.1927 
 ## F-statistic: 14.13 on 3 and 162 DF,  p-value: 3.156e-08</code></pre>
-<p>The statistical test (looking at the T-values and p-values) asks if the null hypothesis that the linear coefficient (<span class="math inline">\(\beta_x\)</span>) corresponding to the particular explanatory variable <span class="math inline">\(x\)</span> is zero. This would mean that the variable has little or no effect on the variation of the target variable <span class="math inline">\(y\)</span>, or Points in this case.</p>
+<p>The statistical test (looking at the T-values and p-values) asks if the null hypothesis that the linear coefficient corresponding to the particular explanatory variable is zero. This would mean that the variable has little or no effect on the variation of the target variable, or Points in this case.</p>
 <p>As seen from the summary, the coefficients related to stra and surf are not statistically significant and the variables should therefore be excluded from the model.</p>
 <p>Redoing the model, this time with only the one (significant) explanatory variable:</p>
 <pre class="r"><code>library(ggplot2)
@@ -459,7 +459,7 @@ summary(my_model2)</code></pre>
 ## Residual standard error: 5.32 on 164 degrees of freedom
 ## Multiple R-squared:  0.1906, Adjusted R-squared:  0.1856 
 ## F-statistic: 38.61 on 1 and 164 DF,  p-value: 4.119e-09</code></pre>
-<p>From the renewed model we see that the relevant estimate of the coefficient <span class="math inline">\(\beta_{Attitude}\)</span> is approximately 3,5. This means that Attitude toward the course explains the course grade (specifically, the total points) so that an increase of one in Attitude will lead to an increase of 3,5 in Points. The intercept parameter is the value of expected points in the exam with an attitude of expected attitude (generally the mean).</p>
+<p>From the renewed model we see that the relevant estimate of the coefficient is approximately 3,5. This means that Attitude toward the course explains the course grade (specifically, the total points) so that an increase of one in Attitude will lead to an increase of 3,5 in Points. The intercept parameter is the value of expected points in the exam with an attitude of expected attitude (generally the mean).</p>
 </div>
 </div>
 
