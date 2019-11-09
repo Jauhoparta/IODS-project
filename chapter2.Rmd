@@ -23,4 +23,5 @@ p <- ggpairs(Learning, mapping = aes(col=gender, alpha=0.3), lower = list(combo 
 p
 
 ```
-Here we see a detailed graphical representation of the data. Some interesting facts pop up, namely most of the subjects are female, 
+
+Here we see a detailed graphical representation of the data. Some interesting facts pop up, namely most of the subjects are female. The ranges and the distributions of the variables are evident, and the most interesting fact about them is that the distributions of the attitude and surf variables differ between males and females. Some of the correlations between the variables seem possibly significant, but one cannot really say based on this analysis. 
