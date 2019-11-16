@@ -86,10 +86,41 @@ Further analysis is needed if one wants to find out the best fit model for this 
 Looking at our model we decide that since health was not seemingly statistically significant, we leave it out of the model and test the predictive power of the model
 
 \begin{equation*}
-log(\frac{p}{1-p})=\alpha +\beta_1 x_1 +\beta_2 x_2 +\beta_3 x_3 + \epsilon
+log(\frac{p}{1-p})=\alpha +\beta_1 x_{G3} +\beta_2 x_{Abs} +\beta_3 x_{Sex} + \epsilon
 \end{equation*}
 
+Where the coefficients correspond to the normal odds ratio and the odds ratios of G3, Abs and Sex, respectively.
+
 ```{r}
-#M<-<- glm(high_use ~ G3 + absences + sex, data = Data, family = "binomial")
+Data<-read.csv("DATA/Alcohol.csv")
+library(dplyr)
+library(GGally)
+library(ggplot2)
+
+M<- glm(high_use ~ G3 + absences + sex, data = Data, family = "binomial")
+
+# predict() the probability of high_use
+probabilities <- predict(M, type = "response")
+
+# add the predicted probabilities to 'alc'
+Data <- mutate(Data, probability = probabilities)
+
+# use the probabilities to make a prediction of high_use
+Data <- mutate(Data, prediction = probability>0.5)
+
+# see the last ten original classes, predicted probabilities, and class predictions
+select(Data, failures, absences, sex, high_use, probability, prediction) %>% tail(10)
+
+# tabulate the target variable versus the predictions
+table(high_use = Data$high_use, prediction = Data$prediction)
+
+g <- ggplot(Data, aes(x = high_use, y = probability, col=prediction))
+
+# define the geom as points and draw the plot
+g + geom_point()
+
+# tabulate the target variable versus the predictions
+table(high_use = Data$high_use, prediction = Data$prediction)
+
 ```
 
