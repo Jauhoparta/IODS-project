@@ -48,7 +48,9 @@ Looking at the distribution of the sex variable, we see what was assumed: women 
 ```{r}
 #library(GGally)
 #library(ggplot2)
-
-#pairs(Data[-1], col=Data$gender)
+Data1<-select(Data, one_of(c("sex", "G3", "health", "absences", "alc_use")))
+pairs(Data1[-1], col=Data$sex)
+p <- ggpairs(Data1, mapping = aes(col=sex, alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
+p
 ```
 
