@@ -8,9 +8,47 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+# Doing logistic regression analysis
 
+## 1. The data.
+
+Just for fun and games we will print the summary of the data we are about to use.  The summary is somewhat difficult to read, so feel free to skip to the actual work.
+
+Looking at the data:
 ```{r}
 Data<-read.csv("DATA/Alcohol.csv")
 summary(Data)
+colnames(Data)
+```
+The data consists of 36 variables and 382 observations. The first column X is only the identification number for the data. The data is gathered from two schools with a questionnaire to students and  school reports and wrangled so that only students who studied both mathematics and portuguese are included.
+
+We are interested in the link between alcohol consumption  (specifically binary response, high or low) and some other interesting variables. Specifically, we will look at the variables "absences", "health", "sex" and "G3", which means the mean final grade of math and portuguese of the student in question.
+
+The basic assumptions are clear: high alcohol consumption could have an increasing effect on absences, a decreasing effect on health, sex could well have an effect on consumption (either way, but mostly women tend to drink less) and finally, the final grade should sink if one consumes a lot.
+```{r}
+library(dplyr)
+library(ggplot2)
+
+Data<-read.csv("DATA/Alcohol.csv")
+g1 <- ggplot(data = Data, aes(x = alc_use, fill=sex))
+
+# define the plot as a bar plot and draw it
+g1 + geom_bar()
+
+
+# initialize a plot of 'high_use'
+g2 <- ggplot(data = Data, aes(x=high_use, fill=sex))
+
+# draw a bar plot of high_use by sex
+g2+geom_bar()
+
+```
+Looking at the distribution of the sex variable, we see what was assumed: women consume slightly less.
+
+```{r}
+#library(GGally)
+#library(ggplot2)
+
+#pairs(Data[-1], col=Data$gender)
 ```
 
