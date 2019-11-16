@@ -65,7 +65,7 @@ We will now fit a logistic model to the data.
 Data<-read.csv("DATA/Alcohol.csv")
 library(dplyr)
 
-model <- glm(high_use ~ G3 + absences +health+ sex, data = Data, family = "binomial")
+model <- glm(high_use ~ G3 + absences + health + sex, data = Data, family = "binomial")
 
 # compute odds ratios (OR)
 OR <- coef(model) %>% exp
@@ -76,5 +76,20 @@ CI<-exp(confint(model))
 # print out the odds ratios with their confidence intervals
 cbind(OR, CI)
 
+```
+Here we see the summary of the fitted logistic regression model. The odds ratio for G3 is 0.9 with the confidence interval not overlapping 1 with 95% confidence. This means that odds for high G3 values mean lower odds for alcohol consumption. For absences, the odds ratio is a little over 1, wiht the confidence interval again not containing 1. This means that statistically the higher the absences, the higher the consumption of alcoho. For health we see what previously was seen; the confidence interval contains 1, which means that statistically we cannot be sure if health has any effect, and last but _not least_, the odds ratio for males compared to odds ratio of high alcohol consumption seems to be the highest in this model. This does not mean that sex is the best bet for understanding high alcohol consumption. It only states that the probability of being male seems to give some information on alcohol consumption.
+
+Further analysis is needed if one wants to find out the best fit model for this data.
+
+## 4. The goodness of the model
+
+Looking at our model we decide that since health was not seemingly statistically significant, we leave it out of the model and test the predictive power of the model
+
+\begin{equation*}
+log(\frac{p}{1-p})=\alpha +\beta_1 x_1 +\beta_2 x_2 +\beta_3 x_3 + \epsilon
+\end{equation*}
+
+```{r}
+#M<-<- glm(high_use ~ G3 + absences + sex, data = Data, family = "binomial")
 ```
 
