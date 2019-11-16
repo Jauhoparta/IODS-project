@@ -25,6 +25,8 @@ The data consists of 36 variables and 382 observations. The first column X is on
 We are interested in the link between alcohol consumption  (specifically binary response, high or low) and some other interesting variables. Specifically, we will look at the variables "absences", "health", "sex" and "G3", which means the mean final grade of math and portuguese of the student in question.
 
 The basic assumptions are clear: high alcohol consumption could have an increasing effect on absences, a decreasing effect on health, sex could well have an effect on consumption (either way, but mostly women tend to drink less) and finally, the final grade should sink if one consumes a lot.
+
+## 2. Graphical and numerical analysis
 ```{r}
 library(dplyr)
 library(ggplot2)
@@ -43,14 +45,36 @@ g2 <- ggplot(data = Data, aes(x=high_use, fill=sex))
 g2+geom_bar()
 
 ```
-Looking at the distribution of the sex variable, we see what was assumed: women consume slightly less.
-
+  
+Looking at the distribution of the sex variable, we see what was assumed: women consume slightly less. Now let's draw a more detailed plot of what's going on in the variables.
+  
 ```{r}
-#library(GGally)
-#library(ggplot2)
+library(GGally)
+library(ggplot2)
 Data1<-select(Data, one_of(c("sex", "G3", "health", "absences", "alc_use")))
-pairs(Data1[-1], col=Data$sex)
 p <- ggpairs(Data1, mapping = aes(col=sex, alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
 p
+```
+ 
+ From the graphs we see that the assumptions made previously seem somewhat correct; the correlation between alc_use and G3 is negative, especially in men, while the correlation between absences and alc_use is positive. Health does not seem to have a significant relation to alc_use, probably because the effects of alcohol use do not onset until later. Interestingly, all the distributions (on the diagonal) of the variables seem to be similar fo the sexes, except for alcohol consumption, which is significantly more skewed to the left for women. This leads to the question of validity: do the students answer differently based on sex?
+ 
+## 3. The logit model
+
+We will now fit a logistic model to the data.
+```{r}
+Data<-read.csv("DATA/Alcohol.csv")
+library(dplyr)
+
+model <- glm(high_use ~ G3 + absences +health+ sex, data = Data, family = "binomial")
+
+# compute odds ratios (OR)
+OR <- coef(model) %>% exp
+
+# compute confidence intervals (CI)
+CI<-exp(confint(model))
+
+# print out the odds ratios with their confidence intervals
+cbind(OR, CI)
+
 ```
 
