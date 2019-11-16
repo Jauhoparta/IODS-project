@@ -119,8 +119,6 @@ g <- ggplot(Data, aes(x = high_use, y = probability, col=prediction))
 # define the geom as points and draw the plot
 g + geom_point()
 
-# tabulate the target variable versus the predictions
-table(high_use = Data$high_use, prediction = Data$prediction)
 
 ```
-
+The total proportion of the misclassified individuals is 98/386 = 0.26. This means that one out of four guesses is false. Just monkey-guessing would lead to a proportion of 1/2, and educated guesses could improve this; even only looking at the sex of the subject, one could most likely draw some conclusions on the alcohol consumption.
