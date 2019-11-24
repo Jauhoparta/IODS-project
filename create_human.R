@@ -1,6 +1,7 @@
 # Doing some data wrangling for next week now:
 
 library(dplyr)
+setwd("~/IODS-project")
 # Reading data into memory
 
 
@@ -40,4 +41,12 @@ gii<-rename(gii,Edfemale=Population.with.Secondary.Education..Female.)
 gii<-rename(gii,Edmale=Population.with.Secondary.Education..Male.)
 gii<-rename(gii,Labfem=Labour.Force.Participation.Rate..Female. )
 gii<-rename(gii,Labmale=Labour.Force.Participation.Rate..Male. )
+gii$Ratioed<-gii$Edfemale/gii$Edmale
+gii$Ratiolab<-gii$Labfem/gii$Labmale
+summary(gii)
 
+
+# now joining the sets so that we end up with one larger set. Keeping only the data that are in both tables
+
+human<-inner_join(hd, gii, by="Country")
+write.csv(human, file="DATA/human.csv")
