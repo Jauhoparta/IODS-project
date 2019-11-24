@@ -26,3 +26,8 @@ output:
 
 ```
 
+***
+```{rchild= "chapter4.rmd}
+
+```
+
