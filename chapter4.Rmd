@@ -5,7 +5,7 @@ date: "24 11 2019"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(MASS)
 library(ggplot2)
@@ -67,7 +67,7 @@ library(MASS)
 library(ggplot2)
 library(GGally)
 library(dplyr)
-par(mar=c(1.1,1.1,1.1,1.1), mfrow=c(1,2))
+
 ggpairs(Boston, columns=c(3,5,7), mapping = aes(col=as.factor(Boston$chas), alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
 ggpairs(bostondata, columns=c(3,5,7), mapping = aes(col=as.factor(bostondata$chas), alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
 ```
