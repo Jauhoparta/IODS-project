@@ -45,9 +45,20 @@ The correlations are high for some of the variables, above 0,7 for
 
 This means to say that these variables are likely to have an effect when we do the LDA (if we get to it. . .)
 
-**But** first we have to standardize the data:
+**But** first we have to standardize the data. This means we scale it so that all of it has mean 0 and standard deviation 1:
 
 ```{r}
+Data<-as.data.frame(scale(Boston))
+summary(Data)
+
 
 ```
+The obvious thing to change is the mean, but let's look at graphical representations of a couple of variables, namely nox, age and indus:
+```{r}
 
+par(mfrow=c(1,2))
+ggpairs(Boston, columns=c(3,5,7), mapping = aes(col=as.factor(Boston$chas), alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
+
+ggpairs(Data, columns=c(3,5,7), mapping = aes(col=as.factor(Data$chas), alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
+```
+ From this representation the difference is clear: 
