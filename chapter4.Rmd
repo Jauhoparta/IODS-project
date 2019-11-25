@@ -17,7 +17,7 @@ library(dplyr)
 
 First of all, let's see the data we're about to classify and look at it.
 
-## Datatataa!
+## datatataa!
 
 ```{r}
 
@@ -39,51 +39,56 @@ library(dplyr)
 ggpairs(Boston, columns=c(1,2,3,5,6,7,8,9,10), mapping = aes(col=as.factor(Boston$chas), alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
 ggpairs(Boston[6:14], mapping = aes(col=as.factor(Boston$chas), alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
 ggpairs(Boston[c(11,12,13,14,1,2,3,5)], mapping = aes(col=as.factor(Boston$chas), alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
-
 ```
 
 Looking at the distributions of the variables it seems quite clear that the data is not normally distributed. The peakiness of several of the variables, not to mention the obvious skewedness.
 
 The correlations are high for some of the variables, above 0,7 for  
 
-* nox and the set indus, age and dis 
-* dis and age
-* tax and rad
-* istat and medv
+nox and the set indus, age and dis   
+dis and age  
+tax and rad  
+istat and medv  
 
 This means to say that these variables are likely to have an effect when we do the LDA (if we get to it. . .)
 
-*But* first we have to standardize the data. This means we scale it so that all of it has mean 0 and standard deviation 1:
+But first we have to standardize the data. This means we scale it so that all of it has mean 0 and standard deviation 1:
 
 ```{r}
 library(MASS)
 library(ggplot2)
 library(GGally)
 library(dplyr)
-Data<-as.data.frame(scale(Boston))
-summary(Data)
-
-
+bostondata<-as.data.frame(scale(Boston))
+summary(bostondata)
 ```
 The obvious thing to change is the mean, but let's look at graphical representations of a couple of variables, namely nox, age and indus:
 ```{r}
-
+library(MASS)
+library(ggplot2)
+library(GGally)
+library(dplyr)
 par(mar=c(1.1,1.1,1.1,1.1), mfrow=c(1,2))
 ggpairs(Boston, columns=c(3,5,7), mapping = aes(col=as.factor(Boston$chas), alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
-ggpairs(Data, columns=c(3,5,7), mapping = aes(col=as.factor(Data$chas), alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
+ggpairs(bostondata, columns=c(3,5,7), mapping = aes(col=as.factor(bostondata$chas), alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
 ```
    
 From this representation the difference is clear: the mean becomes 0, but the shape of the distribution is unchanged. Now our data is initialized and we can LDA it. As a final exercise we'll make a categorical crimerate variable and divide the data into test and train sets (no toy trains, though). 
 ```{r}
-bins <- quantile(Data$crim)
-crime <- cut(Data$crim, breaks = bins,label=c("low","med_low","med_high","high"), include.lowest = TRUE)
-Data <- dplyr::select(Data, -crim)
-Data <- data.frame(Data, crime)
-n <- nrow(Data)
+library(MASS)
+library(ggplot2)
+library(GGally)
+library(dplyr)
+bostondata<-as.data.frame(scale(Boston))
+bins <- quantile(bostondata$crim)
+crime <- cut(bostondata$crim, breaks = bins,label=c("low","med_low","med_high","high"), include.lowest = TRUE)
+bostondata <- dplyr::select(bostondata, -crim)
+bostondata <- data.frame(bostondata, crime)
+n <- nrow(bostondata)
 
 ind <- sample(n,  size = n * 0.8)
-train <- Data[ind,]
-test <- Data[-ind,]
+train <- bostondata[ind,]
+test <- bostondata[-ind,]
 correct_classes <- test$crime
 test <- dplyr::select(test, -crime)
 
@@ -92,7 +97,23 @@ test <- dplyr::select(test, -crime)
 ## Linear Discriminant Analysis 
 
 Lets do **LDA**!
-```{r echo=T}
+```{r}
+library(MASS)
+library(ggplot2)
+library(GGally)
+library(dplyr)
+bostondata<-as.data.frame(scale(Boston))
+bins <- quantile(bostondata$crim)
+crime <- cut(bostondata$crim, breaks = bins,label=c("low","med_low","med_high","high"), include.lowest = TRUE)
+bostondata <- dplyr::select(bostondata, -crim)
+bostondata <- data.frame(bostondata, crime)
+n <- nrow(bostondata)
+
+ind <- sample(n,  size = n * 0.8)
+train <- bostondata[ind,]
+test <- bostondata[-ind,]
+correct_classes <- test$crime
+test <- dplyr::select(test, -crime)
 # linear discriminant analysis
 lda.fit <- lda(crime~., data = train)
 
@@ -129,7 +150,11 @@ From the plot we see that the variale rad seems to be a high predictor for crime
 
 Let's now predict thigs based on our model.
 
-```{r echo=F}
+```{r}
+library(MASS)
+library(ggplot2)
+library(GGally)
+library(dplyr)
 library(knitr)
 # predict classes with test data
 lda.pred <- predict(lda.fit, newdata = test)
@@ -145,6 +170,10 @@ The table shows quite good predictions, although the med to low crime rate seems
 Now for some interesting stuff. Let's see if we get clusters formed.
 
 ```{r}
+library(MASS)
+library(ggplot2)
+library(GGally)
+library(dplyr)
 boston<-as.data.frame(scale(Boston))
 
 #Let's see the distances of the variables.
@@ -169,6 +198,10 @@ We don't see much with this, but seems that some of the variables have been clus
 Now we do the same with  clusters (5 is just too much, in my expert opinion and looking at the graph below
 ).
 ```{r}
+library(MASS)
+library(ggplot2)
+library(GGally)
+library(dplyr)
 k_max <- 10
 
 # calculate the total within sum of squares
@@ -183,6 +216,10 @@ qplot(x = 1:k_max, y = twcss, geom = 'line')
 From the plot we see the behaviour of the within clusters sum of squares. As the number of clusters climbs, the sum will sink but we're not looking for a minimum but for a good change, which happens here at 2 clusters (or 4 clusters, depending on the reader.) We'll do the clustering again with 2 clusters:
 
 ```{r}
+library(MASS)
+library(ggplot2)
+library(GGally)
+library(dplyr)
 # k-means clustering
 km <-kmeans(boston, centers = 2)
 
@@ -196,6 +233,10 @@ pairs(boston[c(12,13,14,1,2,3)], col = km$cluster)
 The interpretation is not quite clear. We see from the data that now everything seems to be well clustered, but it still might be more informative if we apply 4 clusters. Lets. 
 
 ```{r}
+library(MASS)
+library(ggplot2)
+library(GGally)
+library(dplyr)
 km <-kmeans(boston, centers = 4)
 
 # plot the Boston dataset with clusters
