@@ -9,22 +9,19 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# Week 4 is for classes and fications.
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+First of all, let's see the data we're about to classify and look at it
+```{r}
+library(MASS)
+library(ggplot2)
+library(GGally)
+str(Boston)
+summary(Boston)
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+ggpairs(Boston)
 ```
 
-## Including Plots
+Ok so the data looks to be numeric, with some integer variables (chas and rad). The data is on residential areas in the Boston area, with the main application of the data being to explore some aspects of home ownership or living in Boston. The variable chas is 1 if the home is close to the river, 0 otherwise and the variable rad is related to the accessibility to highways, with values ranging from 1 to 24.
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Looking at the distributions of the variables it seems quite clear that the data is not normally distributed. The peakiness of several of the variables, not to mention the obvious skewedness of 
