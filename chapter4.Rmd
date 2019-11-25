@@ -138,17 +138,22 @@ Now for some interesting stuff. Let's see if we get clusters formed.
 ```{r}
 boston<-as.data.frame(scale(Boston))
 
+#Let's see the distances of the variables.
+dist_eu <- dist(boston)
+
+# look at the summary of the distances
+summary(dist_eu)
 km <-kmeans(boston, centers = 3)
 
 # plot the Boston dataset with clusters
 par(mfrow=c(2,2))
-pairs(boston[1:3], col = km$cluster)
-pairs(boston[5:7], col = km$cluster)
-pairs(boston[8:11], col = km$cluster)
-pairs(boston[12:14], col = km$cluster)
+pairs(boston[c(1,2,3,5,6)], col = km$cluster)
+pairs(boston[6:10], col = km$cluster)
+pairs(boston[10:14], col = km$cluster)
+pairs(boston[c(12,13,14,1,2,3)], col = km$cluster)
 # MASS, ggplot2 and Boston dataset are available
 
 ```
 
-
+We don't see much with this, but seems that some of the variables have been clustered together by the algorithm.
 
