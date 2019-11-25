@@ -19,9 +19,9 @@ library(GGally)
 str(Boston)
 summary(Boston)
 
-ggpairs(Boston)
+ggpairs(Boston, mapping = aes(col=as.factor(chas), alpha=0.3))
 ```
 
 Ok so the data looks to be numeric, with some integer variables (chas and rad). The data is on residential areas in the Boston area, with the main application of the data being to explore some aspects of home ownership or living in Boston. The variable chas is 1 if the home is close to the river, 0 otherwise and the variable rad is related to the accessibility to highways, with values ranging from 1 to 24.
 
-Looking at the distributions of the variables it seems quite clear that the data is not normally distributed. The peakiness of several of the variables, not to mention the obvious skewedness of 
+Looking at the distributions of the variables it seems quite clear that the data is not normally distributed. The peakiness of several of the variables, not to mention the obvious skewedness of some of them cannot be simpl
