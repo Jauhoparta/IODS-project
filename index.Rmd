@@ -27,7 +27,7 @@ output:
 ```
 
 ***
-```{rchild= "chapter4.rmd"}
+```{r child= "chapter4.rmd"}
 
 ```
 

@@ -157,3 +157,44 @@ pairs(boston[c(12,13,14,1,2,3)], col = km$cluster)
 
 We don't see much with this, but seems that some of the variables have been clustered together by the algorithm.
 
+Now we do the same with  clusters (5 is just too much, in my expert opinion and looking at the graph below
+).
+```{r}
+k_max <- 10
+
+# calculate the total within sum of squares
+twcss <- sapply(1:k_max, function(k){kmeans(boston, k)$tot.withinss})
+
+# visualize the results
+qplot(x = 1:k_max, y = twcss, geom = 'line')
+
+
+```
+
+From the plot we see the behaviour of the within clusters sum of squares. As the number of clusters climbs, the sum will sink but we're not looking for a minimum but for a good change, which happens here at 2 clusters (or 4 clusters, depending on the reader.) We'll do the clustering again with 2 clusters:
+
+```{r}
+# k-means clustering
+km <-kmeans(boston, centers = 2)
+
+# plot the Boston dataset with clusters
+par(mfrow=c(2,2))
+pairs(boston[c(1,2,3,5,6)], col = km$cluster)
+pairs(boston[6:10], col = km$cluster)
+pairs(boston[10:14], col = km$cluster)
+pairs(boston[c(12,13,14,1,2,3)], col = km$cluster)
+```
+The interpretation is not quite clear. We see from the data that now everything seems to be well clustered, but it still might be more informative if we apply 4 clusters. Lets. 
+
+```{r}
+km <-kmeans(boston, centers = 4)
+
+# plot the Boston dataset with clusters
+par(mfrow=c(2,2))
+pairs(boston[c(1,2,3,5,6)], col = km$cluster)
+pairs(boston[6:10], col = km$cluster)
+pairs(boston[10:14], col = km$cluster)
+pairs(boston[c(12,13,14,1,2,3)], col = km$cluster)
+```
+  
+Now the data seems nicer to the eye. Most of the clusters do not overlap, and it seems that we gain more insight into the data set with the clustering: for example, the variable indus seems to have one almost categorical value that defines the red cluster, and similarly fo ptratio and tax. The further analysis would require we do a detailed look into the relations of the variables using only the found clusters, but clearly we do not have time for that.
