@@ -7,11 +7,17 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(MASS)
+library(ggplot2)
+library(GGally)
 ```
 
 # Week 4 is for classes and fications.
 
-First of all, let's see the data we're about to classify and look at it
+First of all, let's see the data we're about to classify and look at it.
+
+## Datatataa!
+
 ```{r}
 library(MASS)
 library(ggplot2)
@@ -25,8 +31,23 @@ ggpairs(Boston[7:14], mapping = aes(col=as.factor(Boston$chas), alpha=0.3), lowe
 ggpairs(Boston[-(4:10)], mapping = aes(col=as.factor(Boston$chas), alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
 ```
 
-Ok so the data looks to be numeric, with some integer variables (chas and rad). The data is on residential areas in the Boston area, with the main application of the data being to explore some aspects of home ownership or living in Boston. The variable chas is 1 if the home is close to the river, 0 otherwise and the variable rad is related to the accessibility to highways, with values ranging from 1 to 24.
+The plots have been drawn with chas (the dummy variable) as color, since showing it on the plot itself is just plain wrong. 
+
+The data looks to be numeric, with some integer variables (chas and rad). The data is on residential areas in the Boston area, with the main application of the data being to explore some aspects of home ownership or living in Boston. The variable chas is 1 if the home is close to the river, 0 otherwise and the variable rad is related to the accessibility to highways, with values ranging from 1 to 24.
 
 Looking at the distributions of the variables it seems quite clear that the data is not normally distributed. The peakiness of several of the variables, not to mention the obvious skewedness.
 
-The correlations are high for some of the variables, especially 
+The correlations are high for some of the variables, above 0,7 for
+* nox and the set indus, age and dis 
+* dis and age
+* tax and rad
+* istat and medv
+
+This means to say that these variables are likely to have an effect when we do the LDA (if we get to it. . .)
+
+**But** first we have to standardize the data:
+
+```{r}
+
+```
+
