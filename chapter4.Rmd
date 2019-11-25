@@ -19,7 +19,7 @@ First of all, let's see the data we're about to classify and look at it.
 
 ## Datatataa!
 
-```{r }
+```{r}
 
 str(Boston)
 summary(Boston)
@@ -31,7 +31,11 @@ The data looks to be numeric, with some integer variables (chas and rad). The da
 The plots have been drawn with chas (the dummy variable) as color, since showing it on the plot itself is just plain wrong. The data has so many variables that four tables were necessary to get all the correlations into the picture.
 
 
-```{r results='hide'}
+```{r}
+library(MASS)
+library(ggplot2)
+library(GGally)
+library(dplyr)
 ggpairs(Boston, columns=c(1,2,3,5,6,7,8,9,10), mapping = aes(col=as.factor(Boston$chas), alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
 ggpairs(Boston[6:14], mapping = aes(col=as.factor(Boston$chas), alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
 ggpairs(Boston[c(11,12,13,14,1,2,3,5)], mapping = aes(col=as.factor(Boston$chas), alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
@@ -52,13 +56,17 @@ This means to say that these variables are likely to have an effect when we do t
 *But* first we have to standardize the data. This means we scale it so that all of it has mean 0 and standard deviation 1:
 
 ```{r}
+library(MASS)
+library(ggplot2)
+library(GGally)
+library(dplyr)
 Data<-as.data.frame(scale(Boston))
 summary(Data)
 
 
 ```
 The obvious thing to change is the mean, but let's look at graphical representations of a couple of variables, namely nox, age and indus:
-```{r echo=FALSE, results='hide'}
+```{r}
 
 par(mar=c(1.1,1.1,1.1,1.1), mfrow=c(1,2))
 ggpairs(Boston, columns=c(3,5,7), mapping = aes(col=as.factor(Boston$chas), alpha=0.3), lower = list(combo = wrap("facethist", bins = 20)))
@@ -66,7 +74,7 @@ ggpairs(Data, columns=c(3,5,7), mapping = aes(col=as.factor(Data$chas), alpha=0.
 ```
    
 From this representation the difference is clear: the mean becomes 0, but the shape of the distribution is unchanged. Now our data is initialized and we can LDA it. As a final exercise we'll make a categorical crimerate variable and divide the data into test and train sets (no toy trains, though). 
-```{r echo=TRUE}
+```{r}
 bins <- quantile(Data$crim)
 crime <- cut(Data$crim, breaks = bins,label=c("low","med_low","med_high","high"), include.lowest = TRUE)
 Data <- dplyr::select(Data, -crim)
