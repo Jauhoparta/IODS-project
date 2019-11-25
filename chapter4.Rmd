@@ -62,7 +62,9 @@ library(dplyr)
 bostondata<-as.data.frame(scale(Boston))
 summary(bostondata)
 ```
-The obvious thing to change is the mean, but let's look at graphical representations of a couple of variables, namely nox, age and indus:
+  
+The obvious thing to change is the mean, but let's look at graphical representations of a couple of variables, namely nox, age and indus:  
+
 ```{r}
 library(MASS)
 library(ggplot2)
