@@ -104,4 +104,4 @@ human_working <- human_working[1:last, ]
 rownames(human_working) <- human_working$Country
 human_working<-select(human_working, -Country)
 
-write.csv(human_working, "DATA/human", row.names = TRUE)
+write.csv(human_working, "DATA/human.csv", row.names = TRUE)
