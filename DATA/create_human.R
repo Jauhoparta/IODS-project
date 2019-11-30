@@ -82,7 +82,7 @@ str(human_working$GNIperc)
 
 # It seems that the GNI is not quite clean, as some of the data is separated by a comma. Let's fix this
 
-str_replace(human_working$GNIperc, pattern=",", replace ="")%>%as.numeric
+human_working$GNIperc<-str_replace(human_working$GNIperc, pattern=",", replace ="")%>%as.numeric
 
 # And select the variables needed:
 
@@ -105,3 +105,4 @@ rownames(human_working) <- human_working$Country
 human_working<-select(human_working, -Country)
 
 write.csv(human_working, "DATA/human.csv", row.names = TRUE)
+
