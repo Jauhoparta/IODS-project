@@ -6,12 +6,46 @@ output: html_document
 ---
 
 ```{r include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 library(GGally)
 library(dplyr)
 library(FactoMineR)
 library(ggplot2)
 library(tidyr)
 ```
-# Week 5 is for 
-Right. No
+# Week 5 is for fun!
+
+
+## Data, right? "No. The correct way to address a senior officer is Lieutnant Data."
+
+This week we will look into the human dataset from the UN report of 2015. The data looks following:
+```{r}
+library(GGally)
+library(dplyr)
+library(FactoMineR)
+library(ggplot2)
+library(tidyr)
+library(corrplot)
+Human<-read.csv("DATA/human.csv", row.names = 1)
+summary(Human$GNIperc)
+ggpairs(Human)
+Humancor<-cor(Human)
+corrplot(Humancor, type="upper", cl.pos="b", tl.pos="d", tl.cex=0.6)
+summary(Human)
+```
+
+It seems that the variables are numeric, with some represented as percentages. The ratio of women in the labour force seems not to correllate with the rest of the bunch, while others have high correlations. Specifically, the education of women and education expectancy correlate highly with adolescent birth rate and maternal mortality. This is to be expected since the more women educate themselves, the later they generally have children and high education rates lead to low mortalities. Life expectancy obviously correllates with maternal mortality and eduexp with edufem, but these seem to be quite obvious correllations to the educated reader.
+'
+## 2. PCA or finding the true variables
+
+PCA is used to find the relevant variable combinations in the dataset. Since many of the variables correlate, this seems a prudent approach to reducing the dimensionality of the data.
+
+The first task is to standardize the data:
+```{r echo=T}
+human_std<-scale(Human)
+summary(human_std)
+
+```
+
+We see that now the variables are centered with std = 1. Now for some PCA!
+
