@@ -1,5 +1,8 @@
+# Tuomas Mäkelä
+# Working on the UN development programme dataset from
+# http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/human1.txt
 # Doing some data wrangling for next week now:
-
+#
 library(dplyr)
 setwd("~/IODS-project")
 # Reading data into memory
