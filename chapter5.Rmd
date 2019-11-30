@@ -16,7 +16,9 @@ library(tidyr)
 # Week 5 is for fun!
 
 
-## Data, right? "No. The correct way to address a senior officer is Lieutnant Data."
+## Data, right? 
+
+### No. The *correct* way to address a senior officer is "Lieutnant Data".
 
 This week we will look into the human dataset from the UN report of 2015. The data looks following:
 ```{r}
@@ -27,6 +29,9 @@ library(ggplot2)
 library(tidyr)
 library(corrplot)
 Human<-read.csv("DATA/human.csv", row.names = 1)
+Human$RatFLab<-Human$Labfem
+Human<-select(Human, -Labfem)
+Human<-rename(Human, Labfem=RatFLab)
 summary(Human$GNIperc)
 ggpairs(Human)
 Humancor<-cor(Human)
@@ -34,18 +39,45 @@ corrplot(Humancor, type="upper", cl.pos="b", tl.pos="d", tl.cex=0.6)
 summary(Human)
 ```
 
-It seems that the variables are numeric, with some represented as percentages. The ratio of women in the labour force seems not to correllate with the rest of the bunch, while others have high correlations. Specifically, the education of women and education expectancy correlate highly with adolescent birth rate and maternal mortality. This is to be expected since the more women educate themselves, the later they generally have children and high education rates lead to low mortalities. Life expectancy obviously correllates with maternal mortality and eduexp with edufem, but these seem to be quite obvious correllations to the educated reader.
-'
+It seems that the variables are numeric, with some represented as percentages. The ratio of women in the labour force seems not to correllate with the rest of the bunch, while others have high correlations. Specifically, the education of women, education expectancy and life expectancy correlate highly with adolescent birth rate, maternal mortality and GNI per capita. This is to be expected since the more women educate themselves, the later they generally have children and high education rates lead to low mortalities. Life expectancy obviously correllates with maternal mortality and eduexp with edufem, but these seem to be quite obvious correllations to the educated reader.
+
+The other two variables seem to have much lower correllations with the rest of the stuff, but seem quite similar to each other in that respect. Both represent somehow the working status of women.  
+
 ## 2. PCA or finding the true variables
 
 PCA is used to find the relevant variable combinations in the dataset. Since many of the variables correlate, this seems a prudent approach to reducing the dimensionality of the data.
 
-The first task is to standardize the data:
+```{r}
+pca_human <- prcomp(Human)
+
+
+biplot(pca_human, choices = 1:2, cex=c(0.3,1), col=c("grey55", "orangered3"), main="Please disregard this graph")
+```
+  
+as that's just horrible. PCA doesn't seem to like the distribution of some of the variables. This seems reasonable, since GNIperc and others have distributions that are far different from the rest of the crew.
+
+The only principal component the analysis detects is GNI. This seems prudent, since the values of that variable are by FAR greater than most of the other ones. This leads to the analysis running to almost zero components for the rest of the stuff, so let's just not look at that ever again.
+
+
+Now we will standardize the data and try it again.  
 ```{r echo=T}
 human_std<-scale(Human)
 summary(human_std)
 
 ```
 
-We see that now the variables are centered with std = 1. Now for some PCA!
+We see that now the variables are centered with std = 1. Now for some PCA!  
 
+```{r}
+pca_humanstd <- prcomp(human_std)
+
+
+biplot(pca_humanstd, choices = 1:2, cex=c(0.4,1), col=c("slategray4", "green4"), main="Relations of Women In the World")
+
+```
+
+That looks immensely better. The PC1 component seems to correspond to Education rate of women and the GNI of the country. These are highly correllated as we saw in the first plot and it seems prudent that  joint component representing all these variables be created. The second component contains the variables for female labour and the ratio of women in parliament. This seems to indicate that both the variables are measuring similar things. One would be tempted to say that the respect for women is among them, but we will refrain from making such quick inferences based on only one analysis.
+
+Looking again at the correlation plot done on the data matrix first, we see that the PCA detects sets of variables related to one another. 
+
+## MCA on Tea Time
