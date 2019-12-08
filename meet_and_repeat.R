@@ -29,3 +29,5 @@ RATSL <- rats %>%
 # Now the data are in long form. this means that both for BPRSL (the long one) and RATSL, we have fewer variables than before.
 # The variables are, for RATSL: ID, Groupl, Woéight and time while for BPRSL they are treatment, subject, bprsl and week. 
 # The variable weeks is redundant since we already have the same info in week.
+
+# The long version of the data allows us to do time dependent analysis on the datasets. The short form does not support our analysis.
