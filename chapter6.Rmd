@@ -1,0 +1,7 @@
+---
+output: html_document
+---
+
+# Week 6 is for lazy.
+
+No analysis done. feel free to reprimand on points.
